@@ -1,0 +1,82 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <title>OANDA Client-Side OAuth Flow Sample/Demo</title>
+
+	  <!-- All JavaScript at the bottom, except this Modernizr build.
+			 Modernizr enables HTML5 elements & feature detects for optimal performance.
+			 Create your own custom Modernizr build: www.modernizr.com/download/ -->
+
+	  <script src="js/libs/json2.js"></script>
+    <!-- https://github.com/wojodesign/local-storage-js -->
+	  <script src="js/libs/localstorage.js"></script>
+	  <script src="js/libs/modernizr-2.5.3.min.js"></script>
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+	  <script src="./jso.js"></script>
+	  <script type="text/javascript">
+    function implicitFlow() {
+
+        jso_wipe();  // Cleans all saved tokens ... etc
+
+        // This dumps all cached tokens to console, for easier debugging.
+        jso_dump();
+        // Configures the permissions that your application will request.
+        // Valid values are (currently) "read", "trade", "marketdata", "stream".
+        // See the OANDA documentation for the latest values and more details.
+        jso_ensureTokens({
+            "oanda": ["read","trade","marketdate", "stream"]
+        });
+
+    };
+
+    // This function configures your application's OAuth credentials.
+    jso_configure({
+        "oanda": {
+            // Specify the client_id that was provided to you from OANDA
+            client_id: "<client application id>",
+            // Specify the redirect_URL that you provided to OANDA when you registered your application.
+            redirect_uri: "<redirect uri>",
+            // The OANDA authorization URI.
+            // For fxPractice -> "https://api-fxpractice.oanda.com/v1/oauth2/authorize"
+            // For fxTrade -> https://api-fxtrade.oanda.com/v1/oauth2/authorize" 
+            authorization: "https://api-fxpractice.oanda.com/v1/oauth2/authorize", 
+                                                    
+        }
+    });
+
+    function getAccountInfo() {
+        $.oajax({
+            // OANDA REST API URI.  For demo purposes, this will go to the fxPractice's accounts endpoint
+            // For fxPractice -> "https://api-fxpractice.oanda.com/v1/accounts"
+            // For fxTrade -> https://api-fxtrade.oanda.com/v1/accounts" 
+            url: "https://api-fxpractice.oanda.com/v1/accounts",     
+            jso_provider: "oanda",
+            jso_allowia: true,
+            jso_scopes: ["read"],
+            dataType: 'json',
+            success: function(data) {
+                console.log("Response (oanda):");
+                document.write("Currency: " + data.accounts[0].accountCurrency + "<br>");
+                document.write("AccountId: " + data.accounts[0].accountId + "<br>");
+                document.write("AccountName: " + data.accounts[0].accountName + "<br>");
+               console.log(data);
+            }
+        });
+    };
+    </script>
+    <script type=text/javascript>
+        $(document).ready(function() {
+    });
+    </script>
+
+
+    <button type="button" onclick="implicitFlow()">Begin OANDA Client-Side OAuth Flow</button>
+    <button type="button" onclick="getAccountInfo()">Get Account Information</button>
+</head>
+<body>
+
+
+
+</body>
+</html>
