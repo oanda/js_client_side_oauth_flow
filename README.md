@@ -12,15 +12,15 @@ Within 'clientSide_demo.html', you will need update the <client application id> 
 
 *Note your webserver must support TLS/SSL
 
+====================================
 
-
-<br>
-<br>
 Once 'clientSide_demo.html' is loaded in the browser, two bottons will be displayed at the top of the screen.<br>
+
 1.  Begin OANDA Client-Side OAuth Flow<br>
 &nbsp;&nbsp;Once clicked, this button will redirect the user to OANDA's OAuth page to begin the client side OAuth process.<br>
 &nbsp;&nbsp;The user will then be asked to log into OANDA, and grant/deny the client application access to their &nbsp;&nbsp;Once the grant/deny step is completed, the user will be redirected back to the 'redirect uri' (Which for this <br>
 &nbsp;&nbsp;demo's sake, it should be where 'clientSide_demo.html' is being hosted).<br><br>
+
 2.  Get Account Information
         Once access has been granted (access token returned), clicking this button will return the information about this
         user's accounts.  This button will invoke an authenticated call to OANDA's /v1/accounts endpoint.
