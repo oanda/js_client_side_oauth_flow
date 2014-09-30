@@ -1,4 +1,4 @@
-js_client_side_oauth_flow
+OANDA client side OAuth javascript demo
 =========================
 
 A simple JavaScript application to demonstrate the OANDA's client side OAuth flow
